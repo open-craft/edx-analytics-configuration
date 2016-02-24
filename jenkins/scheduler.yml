@@ -1,5 +1,5 @@
 - name: configure jenkins scheduler
-  hosts: analytics-jenkins-scheduler
+  hosts: all
   sudo: True
   gather_facts: True
   vars:
