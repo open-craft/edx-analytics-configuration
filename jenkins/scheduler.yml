@@ -13,15 +13,20 @@
     - jenkins
   tasks:
     - name: Checkout analytics configuration
-      sudo_user: jenkins
+      sudo_user: '{{ jenkins_user }}'
       git: >
         dest=/home/jenkins/analytics-configuration
         repo={{ analytics_configuration_repo }}
         version={{ analytics_configuration_version }}
 
     - name: Checkout analytics pipeline
-      sudo_user: jenkins
+      sudo_user: '{{ jenkins_user }}'
       git: >
         dest=/home/jenkins/analytics-tasks
         repo={{ analytics_pipeline_repo }}
         version={{ analytics_pipeline_version }}
+
+    - name: Set up emr variables file
+      template: >
+        src=templates/emr-vars.yml.j2 dest=/home/jenkins/emr-vars.yml
+        owner={{ jenkins_user }}
