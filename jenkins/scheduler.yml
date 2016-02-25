@@ -11,3 +11,17 @@
     - python
     - s3cmd
     - jenkins
+  tasks:
+    - name: Checkout analytics configuration
+      sudo_user: jenkins
+      git: >
+        dest=/home/jenkins/analytics-configuration
+        repo={{ analytics_configuration_repo }}
+        version={{ analytics_configuration_version }}
+
+    - name: Checkout analytics pipeline
+      sudo_user: jenkins
+      git: >
+        dest=/home/jenkins/analytics-tasks
+        repo={{ analytics_pipeline_repo }}
+        version={{ analytics_pipeline_version }}
