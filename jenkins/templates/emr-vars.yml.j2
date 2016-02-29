@@ -9,6 +9,7 @@ core_instance_type: m1.medium
 master_instance_num: 1
 master_instance_type: m1.small
 role: EMR_EC2_DefaultRole
+keypair_name: '{{ emr_keypair_name }}'
 
 bootstrap_actions:
   security:
