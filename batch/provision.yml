@@ -36,7 +36,7 @@
     - keypair_name: "{{ lookup('env', 'AWS_KEYPAIR_NAME') }}"
     - role: EMR_EC2_DefaultRole
     - ami_version: !!null
-    - release_label: 'emr-4.3.0'
+    - release_label: 'emr-4.4.0'
     - vpc_subnet_id: !!null
     - user_info: []
     - log_uri: !!null
