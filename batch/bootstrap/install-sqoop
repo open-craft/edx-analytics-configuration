@@ -7,12 +7,6 @@ shift
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    --hadoop-version=*)
-      HADOOP_VERSION=${1#*=}
-      ;;
-    --sqoop-version=*)
-      SQOOP_VERSION=${1#*=}
-      ;;
     --mysql-connector-version=*)
       MYSQL_CONNECTOR_VERSION=${1#*=}
       ;;
@@ -23,11 +17,6 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-APACHE_MIRROR=www.apache.org
-HADOOP_VERSION=${HADOOP_VERSION:-1.0.0}
-SQOOP_VERSION=${SQOOP_VERSION:-1.4.6}
-SQOOP_RELEASE=sqoop-$SQOOP_VERSION.bin__hadoop-$HADOOP_VERSION
-SQOOP_RELEASE_FILENAME=$SQOOP_RELEASE.tar.gz
 SQOOP_HOME=/usr/lib/sqoop
 SQOOP_LIB=$SQOOP_HOME/lib
 
@@ -36,9 +25,6 @@ MYSQL_CONNECTOR_RELEASE=mysql-connector-java-$MYSQL_CONNECTOR_VERSION
 MYSQL_CONNECTOR_FILENAME=$MYSQL_CONNECTOR_RELEASE.tar.gz
 MYSQL_CONNECTOR_S3_URL=$BASE_PATH/$MYSQL_CONNECTOR_FILENAME
 
-wget http://$APACHE_MIRROR/dist/sqoop/$SQOOP_VERSION/$SQOOP_RELEASE_FILENAME
-tar -xzf $SQOOP_RELEASE_FILENAME
-sudo mv $SQOOP_RELEASE $SQOOP_HOME
 hadoop dfs -get $MYSQL_CONNECTOR_S3_URL ./$MYSQL_CONNECTOR_FILENAME
 tar -xzf $MYSQL_CONNECTOR_FILENAME
 mkdir -p $SQOOP_LIB
