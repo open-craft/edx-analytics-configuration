@@ -11,9 +11,7 @@ master_instance_type: m1.small
 role: EMR_EC2_DefaultRole
 keypair_name: '{{ emr_keypair_name }}'
 
-bootstrap_actions:
-  ganglia:
-    path: s3://elasticmapreduce/bootstrap-actions/install-ganglia
+bootstrap_actions: {}
 steps:
   - type: script
     name: "Install Sqoop"
