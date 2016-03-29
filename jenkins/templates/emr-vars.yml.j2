@@ -15,7 +15,6 @@ bootstrap_actions:
   - name: security
     path: 's3://{{ emr_s3_config_bucket }}/security.sh'
 steps:
-  - type: hive_install
   - type: script
     name: "Install Sqoop"
     step_args: [ "s3://{{ emr_s3_config_bucket }}/install-sqoop", "s3://{{ emr_s3_config_bucket }}" ]

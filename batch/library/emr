@@ -8,7 +8,6 @@ For use with EMR ami_version 2.x and 3.x, and EMR release labels 4.0 and up.
 """
 import boto3
 import os
-import re
 import time
 import traceback
 
@@ -216,41 +215,12 @@ class ElasticMapreduceCluster():
                 step['ActionOnFailure'] = step_config['action_on_failure']
 
             # Add support for specific step types.
-            if step_type in ['hive_install']:
-                step['HadoopJarStep']['Args'] = self.get_boto_install_hive_step_args(step_config)
-            elif step_type in ['pig_install']:
-                step['HadoopJarStep']['Args'] = self.get_boto_install_pig_step_args(step_config)
-            elif 'step_args' in step_config:
+            if 'step_args' in step_config:
                 step['HadoopJarStep']['Args'] = step_config['step_args']
 
             steps.append(step)
 
         return steps
-
-    def get_boto_install_hive_step_args(self, step_config):
-        hive_versions = step_config.pop('hive_version', 'latest')
-        hive_site = step_config.pop('hive_site', None)
-        args = [
-            's3://elasticmapreduce/libs/hive/hive-script',
-            '--base-path',
-            's3://elasticmapreduce/libs/hive/',
-            '--install-hive',
-            '--hive-versions',
-            hive_versions,
-        ]
-        if hive_site is not None:
-            args.append('--hive-site=%s' % hive_site)
-        return args
-
-    def get_boto_install_pig_step_args(self, step_config):
-        return [
-            's3://elasticmapreduce/libs/pig/pig-script',
-            '--base-path',
-            's3://elasticmapreduce/libs/pig/',
-            '--install-pig',
-            '--pig-versions',
-            step_config.pop('pig_version', 'latest'),
-        ]
 
     def get_boto_application_specs(self, application_configs):
         applications = []
