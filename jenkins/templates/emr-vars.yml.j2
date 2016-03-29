@@ -12,8 +12,8 @@ role: EMR_EC2_DefaultRole
 keypair_name: '{{ emr_keypair_name }}'
 
 bootstrap_actions:
-  - name: security
-    path: 's3://{{ emr_s3_config_bucket }}/security.sh'
+  ganglia:
+    path: s3://elasticmapreduce/bootstrap-actions/install-ganglia
 steps:
   - type: script
     name: "Install Sqoop"
