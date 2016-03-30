@@ -28,7 +28,7 @@ fi
 make -C analytics-tasks install
 
 # Use local ec2 config, if available
-[ -e ec2.ini ] && export ANSIBLE_EC2_INI=ec2.ini
+[ -e ec2.ini ] && export ANSIBLE_EC2_INI="$(readlink --canonicalize --no-newline ec2.ini)"
 
 # Define task on the command line, including the task name and all of its arguments.
 # All arguments provided on the command line are passed through to the remote-task call.
