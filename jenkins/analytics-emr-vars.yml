@@ -1,0 +1,33 @@
+---
+# EXTRA_VARS passed to ansible emr provision/terminate
+# Can lookup any of the analytics task parameters as env vars.
+
+name: "{{ lookup('env', 'CLUSTER_NAME') }}"
+keypair_name: "{{ lookup('env', 'AUTOMATION_KEYPAIR_NAME') }}"
+vpc_subnet_id: "{{ lookup('env', 'VPC_SUBNET_ID') }}"
+log_uri: "{{ lookup('env', 'EMR_LOG_BUCKET') }}"
+region: 'us-east-1'
+task_instance_num: 1
+task_instance_type: m1.medium
+task_instance_bid: 0.03
+core_instance_num: 1
+core_instance_type: m1.medium
+master_instance_num: 1
+master_instance_type: m1.small
+role: "{{ lookup('env', 'EMR_IAM_ROLE') }}"
+bootstrap_actions:
+  security:
+    path: "{{ lookup('env', 'S3_PACKAGE_BUCKET') }}/security.sh"
+steps:
+  - type: hive_install
+  - type: script
+    name: Install Sqoop
+    step_args:
+      - "{{ lookup('env', 'S3_PACKAGE_BUCKET') }}/install-sqoop"
+      - "{{ lookup('env', 'S3_PACKAGE_BUCKET') }}"
+    # You may want to set this to CANCEL_AND_WAIT while debugging step failures.
+    action_on_failure: TERMINATE_JOB_FLOW
+user_info:
+  - name: "{{ lookup('env', 'GITHUB_USERNAME') }}"
+    type: admin
+    github: true
