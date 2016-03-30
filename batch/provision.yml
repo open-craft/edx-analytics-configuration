@@ -29,7 +29,12 @@
           bidprice: "{{ task_instance_bid }}"
     - bootstrap_actions: {}
     - steps: []
-    - applications: []
+    - applications:
+      - name: hadoop
+      - name: ganglia
+      - name: hive
+      - name: pig
+      - name: sqoop-sandbox
     - configurations: []
     - ec2_attributes: {}
     - region: 'us-east-1'
