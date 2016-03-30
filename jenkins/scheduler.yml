@@ -31,3 +31,8 @@
       template: >
         src=templates/emr-vars.yml.j2 dest=/home/jenkins/emr-vars.yml
         owner={{ jenkins_user }}
+
+    - name: Set up ec2 configuration file
+      template: >
+        src=templates/ec2.ini.j2 dest=/home/jenkins/ec2.ini
+        owner={{ jenkins_user }}
