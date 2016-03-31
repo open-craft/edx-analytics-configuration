@@ -13,6 +13,9 @@ virtualenv $VENV_ROOT/analytics-configuration
 TASKS_BIN=$VENV_ROOT/analytics-tasks/bin
 CONF_BIN=$VENV_ROOT/analytics-configuration/bin
 
+. $TASKS_BIN/activate
+make -C analytics-tasks install
+
 . $CONF_BIN/activate
 make -C analytics-configuration provision.emr
 
@@ -25,7 +28,6 @@ if [ "$TERMINATE" = "true" ]; then
 fi
 
 . $TASKS_BIN/activate
-make -C analytics-tasks install
 
 TASKS_REPO=${TASKS_REPO:-https://github.com/edx/edx-analytics-pipeline.git}
 
