@@ -13,7 +13,12 @@ master_instance_type: m1.medium
 role: EMR_EC2_DefaultRole
 
 bootstrap_actions: {}
-steps: []
+steps:
+  - type: script
+    name: "Install MySQL connector for Sqoop"
+    step_args: [ "s3://some-s3-bucket/install-sqoop-mysql-connector", "s3://some-s3-bucket" ]
+    # You may want to set this to CANCEL_AND_WAIT while debugging step failures.
+    action_on_failure: TERMINATE_JOB_FLOW
 
 # The following variables *must* be overridden
 vpc_subnet_id: subnet-30346e76
