@@ -1,5 +1,7 @@
 ---
-# The following variables should probably be overridden
+# The following variables should probably be overridden.
+# Important: Don't use anything smaller than m1.medium for any of these
+# instances, or provisioning will fail.
 name: ETL
 task_instance_num: 1
 task_instance_type: m1.medium
