@@ -28,3 +28,8 @@ steps:
 # The following variables *must* be overridden
 vpc_subnet_id: subnet-30346e76
 log_uri: s3://my-emr-log-bucket
+user_info:
+  - name: someuser
+    github: true
+  - name: someotheruser
+    github: true
