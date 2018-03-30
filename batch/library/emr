@@ -319,7 +319,7 @@ class ElasticMapreduceCluster():
             elif step_type == 'streaming':
                 step_jar = '/home/hadoop/contrib/streaming/hadoop-streaming.jar'
             else:
-                step_jar = 's3://elasticmapreduce/libs/script-runner/script-runner.jar'
+                step_jar = 's3://us-east-1.elasticmapreduce/libs/script-runner/script-runner.jar'
 
             step = {
                 'Name': step_config.pop('name', step_type),
@@ -352,9 +352,9 @@ class ElasticMapreduceCluster():
         hive_versions = step_config.pop('hive_version', 'latest')
         hive_site = step_config.pop('hive_site', None)
         args = [
-            's3://elasticmapreduce/libs/hive/hive-script',
+            's3://us-east-1.elasticmapreduce/libs/hive/hive-script',
             '--base-path',
-            's3://elasticmapreduce/libs/hive/',
+            's3://us-east-1.elasticmapreduce/libs/hive/',
             '--install-hive',
             '--hive-versions',
             hive_versions,
@@ -365,9 +365,9 @@ class ElasticMapreduceCluster():
 
     def get_boto_install_pig_step_args(self, step_config):
         return [
-            's3://elasticmapreduce/libs/pig/pig-script',
+            's3://us-east-1.elasticmapreduce/libs/pig/pig-script',
             '--base-path',
-            's3://elasticmapreduce/libs/pig/',
+            's3://us-east-1.elasticmapreduce/libs/pig/',
             '--install-pig',
             '--pig-versions',
             step_config.pop('pig_version', 'latest'),
